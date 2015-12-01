@@ -35,7 +35,7 @@
         android:background="@drawable/girl_figure"
         android:id="@+id/girl"
         android:gravity="top"
-        android:layout_centerVertical="true"
+        android:layout_above="@+id/iv_kolorob_logo"
         android:layout_toRightOf="@+id/iv_kolorob_logo"
         android:layout_toEndOf="@+id/iv_kolorob_logo" />
 
