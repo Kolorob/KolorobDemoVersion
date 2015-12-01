@@ -64,4 +64,24 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_baunia"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/baunia_picture_with_arrow"
+        android:layout_above="@+id/iv_kolorob_logo" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_parise"
+        android:layout_alignBottom="@+id/boy"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/parise_road_picture_with_arrow"
+        android:layout_alignTop="@+id/girl_shadow" />
+
 </RelativeLayout>
