@@ -26,8 +26,6 @@ local.properties
 Thumbs.db
 
 # OSX files
-.DS_Store
-
 # Eclipse project files
 .classpath
 .project
@@ -35,8 +33,6 @@ Thumbs.db
 # Android Studio
 .idea
 #.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
-.gradle
-build/
 /.idea
 
 # Optional - for older project format, add this section to your gitignore file:
