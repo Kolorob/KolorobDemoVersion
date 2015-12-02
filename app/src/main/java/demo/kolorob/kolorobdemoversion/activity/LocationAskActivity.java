@@ -1,4 +1,4 @@
-package demo.kolorob.kolorobdemoversion.Activity;
+package demo.kolorob.kolorobdemoversion.activity;
 
 import android.app.Activity;
 import android.content.Intent;
