@@ -16,7 +16,7 @@ import demo.kolorob.kolorobdemoversion.R;
 
 public class OpeningActivity extends AppCompatActivity {
 
-    private final static int SPLASH_TIME_OUT = 500;
+    private final static int SPLASH_TIME_OUT = 1000;
     private LinearLayout boy;
     private LinearLayout girl;
     private LinearLayout shadowBoy;
