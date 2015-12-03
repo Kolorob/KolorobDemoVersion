@@ -3,7 +3,6 @@ package demo.kolorob.kolorobdemoversion.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,7 +13,7 @@ import android.widget.RelativeLayout;
 import demo.kolorob.kolorobdemoversion.R;
 
 
-public class OpeningActivity extends AppCompatActivity {
+public class OpeningActivity extends BaseActivity {
 
     private final static int SPLASH_TIME_OUT = 500;
     private LinearLayout boy;
@@ -22,6 +21,7 @@ public class OpeningActivity extends AppCompatActivity {
     private LinearLayout shadowBoy;
     private LinearLayout shadowGirl;
     private ImageView kolorobLogo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,17 +33,17 @@ public class OpeningActivity extends AppCompatActivity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        boy = (LinearLayout)findViewById(R.id.boy);
-        girl = (LinearLayout)findViewById(R.id.girl);
-        shadowBoy = (LinearLayout)findViewById(R.id.shadow_boy);
-        shadowGirl = (LinearLayout)findViewById(R.id.shadow_girl);
+        boy = (LinearLayout) findViewById(R.id.boy);
+        girl = (LinearLayout) findViewById(R.id.girl);
+        shadowBoy = (LinearLayout) findViewById(R.id.shadow_boy);
+        shadowGirl = (LinearLayout) findViewById(R.id.shadow_girl);
 
 
-        RelativeLayout.LayoutParams kolorob_logo = new RelativeLayout.LayoutParams(width, height/3);
-        RelativeLayout.LayoutParams boy_layout=new RelativeLayout.LayoutParams(width/2, (2*height)/3);
-        RelativeLayout.LayoutParams girl_layout=new RelativeLayout.LayoutParams(width/2, (2*height)/3 - height/15);
-        RelativeLayout.LayoutParams boy_shadow=new RelativeLayout.LayoutParams(width/2,  height/12);
-        RelativeLayout.LayoutParams girl_shadow=new RelativeLayout.LayoutParams(width/2, height/12);
+        RelativeLayout.LayoutParams kolorob_logo = new RelativeLayout.LayoutParams(width, height / 3);
+        RelativeLayout.LayoutParams boy_layout = new RelativeLayout.LayoutParams(width / 2, (2 * height) / 3);
+        RelativeLayout.LayoutParams girl_layout = new RelativeLayout.LayoutParams(width / 2, (2 * height) / 3 - height / 15);
+        RelativeLayout.LayoutParams boy_shadow = new RelativeLayout.LayoutParams(width / 2, height / 12);
+        RelativeLayout.LayoutParams girl_shadow = new RelativeLayout.LayoutParams(width / 2, height / 12);
 
         boy_layout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         boy_shadow.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -63,7 +63,7 @@ public class OpeningActivity extends AppCompatActivity {
         shadowBoy.setLayoutParams(boy_shadow);
         shadowGirl.setLayoutParams(girl_shadow);
 
-        kolorob_logo.setMargins(0,15,0,0);
+        kolorob_logo.setMargins(0, 15, 0, 0);
         kolorobLogo.setLayoutParams(kolorob_logo);
 
         new Handler().postDelayed(new Runnable() {
@@ -77,7 +77,7 @@ public class OpeningActivity extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your next activity
-                Intent i = new Intent(OpeningActivity.this,LocationAskActivity.class);
+                Intent i = new Intent(OpeningActivity.this, LocationAskActivity.class);
                 startActivity(i);
             }
         }, SPLASH_TIME_OUT);

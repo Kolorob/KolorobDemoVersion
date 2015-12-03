@@ -1,6 +1,5 @@
 package demo.kolorob.kolorobdemoversion.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -10,7 +9,7 @@ import android.widget.RelativeLayout;
 
 import demo.kolorob.kolorobdemoversion.R;
 
-public class PlaceChoiceActivity extends Activity implements View.OnClickListener {
+public class PlaceChoiceActivity extends BaseActivity implements View.OnClickListener {
 
     private LinearLayout boy;
     private LinearLayout girl;
@@ -18,7 +17,7 @@ public class PlaceChoiceActivity extends Activity implements View.OnClickListene
     private LinearLayout shadowGirl;
     private ImageView kolorobLogo;
     private ImageView bauniaSelection;
-    private  ImageView pariseSelection;
+    private ImageView pariseSelection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +35,18 @@ public class PlaceChoiceActivity extends Activity implements View.OnClickListene
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        boy = (LinearLayout)findViewById(R.id.boy);
-        girl = (LinearLayout)findViewById(R.id.girl);
-        shadowBoy = (LinearLayout)findViewById(R.id.boy_shadow);
-        shadowGirl = (LinearLayout)findViewById(R.id.girl_shadow);
+        boy = (LinearLayout) findViewById(R.id.boy);
+        girl = (LinearLayout) findViewById(R.id.girl);
+        shadowBoy = (LinearLayout) findViewById(R.id.boy_shadow);
+        shadowGirl = (LinearLayout) findViewById(R.id.girl_shadow);
 
-        RelativeLayout.LayoutParams kolorob_logo = new RelativeLayout.LayoutParams(width/3, height/6);
-        RelativeLayout.LayoutParams baunia_img= new RelativeLayout.LayoutParams((int)(2*width/3.2), (int)(height/2.5));
-        RelativeLayout.LayoutParams parise_img = new RelativeLayout.LayoutParams((int)(2*width/3.2), (int)(height/2.5));
-        RelativeLayout.LayoutParams boy_layout=new RelativeLayout.LayoutParams(width/3, height/2);
-        RelativeLayout.LayoutParams girl_layout=new RelativeLayout.LayoutParams(width/3, height/2 - height/15);
-        RelativeLayout.LayoutParams boy_shadow=new RelativeLayout.LayoutParams(width/3,  height/15);
-        RelativeLayout.LayoutParams girl_shadow=new RelativeLayout.LayoutParams(width/3, height/15);
+        RelativeLayout.LayoutParams kolorob_logo = new RelativeLayout.LayoutParams(width / 3, height / 6);
+        RelativeLayout.LayoutParams baunia_img = new RelativeLayout.LayoutParams((int) (2 * width / 3.2), (int) (height / 2.5));
+        RelativeLayout.LayoutParams parise_img = new RelativeLayout.LayoutParams((int) (2 * width / 3.2), (int) (height / 2.5));
+        RelativeLayout.LayoutParams boy_layout = new RelativeLayout.LayoutParams(width / 3, height / 2);
+        RelativeLayout.LayoutParams girl_layout = new RelativeLayout.LayoutParams(width / 3, height / 2 - height / 15);
+        RelativeLayout.LayoutParams boy_shadow = new RelativeLayout.LayoutParams(width / 3, height / 15);
+        RelativeLayout.LayoutParams girl_shadow = new RelativeLayout.LayoutParams(width / 3, height / 15);
 
         kolorob_logo.addRule(RelativeLayout.CENTER_HORIZONTAL);
         kolorob_logo.addRule(RelativeLayout.CENTER_VERTICAL);
@@ -62,8 +61,8 @@ public class PlaceChoiceActivity extends Activity implements View.OnClickListene
         boy_layout.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         boy_layout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
-        int m = height/2 - height/15;
-        girl_layout.setMargins(0,0,0,m);
+        int m = height / 2 - height / 15;
+        girl_layout.setMargins(0, 0, 0, m);
 
         boy.setLayoutParams(boy_layout);
         girl.setLayoutParams(girl_layout);
@@ -76,6 +75,7 @@ public class PlaceChoiceActivity extends Activity implements View.OnClickListene
         pariseSelection.setLayoutParams(parise_img);
 
     }
+
     @Override
     public void onClick(View view) {
 

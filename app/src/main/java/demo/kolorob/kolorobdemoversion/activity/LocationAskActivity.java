@@ -1,6 +1,5 @@
 package demo.kolorob.kolorobdemoversion.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,7 @@ import android.widget.ImageButton;
 import demo.kolorob.kolorobdemoversion.R;
 
 
-public class LocationAskActivity extends Activity implements View.OnClickListener{
+public class LocationAskActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageButton yes;
     private ImageButton no;
