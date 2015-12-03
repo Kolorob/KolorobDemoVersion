@@ -1,5 +1,6 @@
 package demo.kolorob.kolorobdemoversion.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,10 +9,9 @@ import android.widget.ImageButton;
 import demo.kolorob.kolorobdemoversion.R;
 
 
-public class LocationInstructionActivity extends BaseActivity {
+public class LocationInstructionActivity extends Activity {
 
     private ImageButton yes;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ public class LocationInstructionActivity extends BaseActivity {
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LocationInstructionActivity.this, PlaceChoiceActivity.class);
+                Intent i = new Intent(LocationInstructionActivity.this,PlaceChoiceActivity.class);
                 startActivity(i);
             }
         });

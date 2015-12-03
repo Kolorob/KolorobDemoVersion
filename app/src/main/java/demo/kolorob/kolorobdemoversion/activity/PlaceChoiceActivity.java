@@ -1,5 +1,6 @@
 package demo.kolorob.kolorobdemoversion.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import demo.kolorob.kolorobdemoversion.R;
+import demo.kolorob.kolorobdemoversion.utils.AppConstants;
 
 public class PlaceChoiceActivity extends BaseActivity implements View.OnClickListener {
 
@@ -81,15 +83,22 @@ public class PlaceChoiceActivity extends BaseActivity implements View.OnClickLis
 
         switch (view.getId()) {
             case R.id.iv_baunia:
-
+                gotoPlaceDetailsView(AppConstants.PLACE_BAUNIABADH);
                 break;
             case R.id.iv_parise:
-
+                gotoPlaceDetailsView(AppConstants.PLACE_PARIS_ROAD);
                 break;
             default:
                 break;
 
         }
 
+    }
+
+    private void gotoPlaceDetailsView(int placeId) {
+        Intent intent = new Intent(PlaceChoiceActivity.this, PlaceDetailsActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(AppConstants.KEY_PLACE, placeId);
+        startActivity(intent);
     }
 }

@@ -6,13 +6,29 @@ import java.io.Serializable;
  * Created by touhid on 10/30/15.
  * @author touhid
  */
-public class CatDetails implements Serializable{
+public class CategoryItem implements Serializable{
 
+    private int iconId;
     private String catName, otherDetails;
 
-    public CatDetails(String catName, String otherDetails) {
+    public CategoryItem(int iconId, String catName, String otherDetails) {
+        this.iconId = iconId;
         this.catName = catName;
         this.otherDetails = otherDetails;
+    }
+
+    public CategoryItem(int iconId, String catName) {
+        this.iconId = iconId;
+        this.catName = catName;
+        this.otherDetails = "";
+    }
+
+    public int getIconId() {
+        return iconId;
+    }
+
+    public void setIconId(int iconId) {
+        this.iconId = iconId;
     }
 
     public String getCatName() {
@@ -33,8 +49,9 @@ public class CatDetails implements Serializable{
 
     @Override
     public String toString() {
-        return "CatDetails{" +
-                "catName='" + catName + '\'' +
+        return "CategoryItem{" +
+                "iconId=" + iconId +
+                ", catName='" + catName + '\'' +
                 ", otherDetails='" + otherDetails + '\'' +
                 '}';
     }
