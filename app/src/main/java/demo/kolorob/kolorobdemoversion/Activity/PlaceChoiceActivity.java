@@ -2,6 +2,7 @@ package demo.kolorob.kolorobdemoversion.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -14,7 +15,8 @@ import android.widget.RelativeLayout;
 import demo.kolorob.kolorobdemoversion.R;
 
 public class PlaceChoiceActivity extends Activity implements View.OnClickListener {
-
+    private AnimationDrawable frameAnimation;
+    private AnimationDrawable frameAnimation1;
     private LinearLayout boy;
     private LinearLayout girl;
     private LinearLayout shadowBoy;
@@ -22,6 +24,8 @@ public class PlaceChoiceActivity extends Activity implements View.OnClickListene
     private ImageView kolorobLogo;
     private ImageView bauniaSelection;
     private  ImageView pariseSelection;
+    private ImageView view;
+    private ImageView view1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +70,7 @@ public class PlaceChoiceActivity extends Activity implements View.OnClickListene
         boy_layout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 
         int m = height/2 - height/15;
-        girl_layout.setMargins(0,0,0,m);
+        girl_layout.setMargins(0, 0, 0, m);
 
         boy.setLayoutParams(boy_layout);
         girl.setLayoutParams(girl_layout);
@@ -78,16 +82,30 @@ public class PlaceChoiceActivity extends Activity implements View.OnClickListene
         bauniaSelection.setLayoutParams(baunia_img);
         pariseSelection.setLayoutParams(parise_img);
 
+
+        //added some animation on Button
+        view = (ImageView) findViewById(R.id.iv_baunia);
+        view1 = (ImageView) findViewById(R.id.iv_parise);
+        view.setBackgroundResource(R.drawable.frame_animation_list);
+        view1.setBackgroundResource(R.drawable.frame_animation_list1);
+        frameAnimation = (AnimationDrawable) view.getBackground();
+        frameAnimation1 = (AnimationDrawable) view1.getBackground();
+        frameAnimation.setOneShot(true);
+        frameAnimation1.setOneShot(true);
+
+
+
+
     }
     @Override
     public void onClick(View view) {
 
         switch (view.getId()) {
             case R.id.iv_baunia:
-
+                frameAnimation.start();
                 break;
             case R.id.iv_parise:
-
+                frameAnimation1.start();
                 break;
             default:
                 break;
