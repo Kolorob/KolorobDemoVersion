@@ -7,10 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import android.os.Handler;
 
 import demo.kolorob.kolorobdemoversion.R;
 
@@ -93,7 +96,50 @@ public class PlaceChoiceActivity extends Activity implements View.OnClickListene
         frameAnimation.setOneShot(true);
         frameAnimation1.setOneShot(true);
 
+       bauniaSelection.setOnTouchListener(
+               new View.OnTouchListener() {
+                   @Override
+                   public boolean onTouch(View v, MotionEvent event) {
+                       switch (event.getAction()) {
+                           case MotionEvent.ACTION_DOWN:
+                               // PRESSED
+                               frameAnimation.start();
+                               new Handler().postDelayed(new Runnable() {
+                                   @Override
+                                   public void run() {
+                                       Intent intent = new Intent(PlaceChoiceActivity.this, ButtonClickBaunia.class);
+                                       startActivity(intent);
+                                   }
+                               }, 300);
+                               return true; // if you want to handle the touch event
+                       }
+                       return false;
+                   }
+               }
+       );
 
+
+        pariseSelection.setOnTouchListener(
+                new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        switch(event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                // PRESSED
+                                frameAnimation1.start();
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(PlaceChoiceActivity.this, ButtonClickBaunia.class);
+                                        startActivity(intent);
+                                    }
+                                }, 300);
+                                return true; // if you want to handle the touch event
+                        }
+                        return false;
+                    }
+                }
+        );
 
 
     }
@@ -102,7 +148,20 @@ public class PlaceChoiceActivity extends Activity implements View.OnClickListene
 
         switch (view.getId()) {
             case R.id.iv_baunia:
-                frameAnimation.start();
+
+
+
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Intent intent = new Intent(PlaceChoiceActivity.this, ButtonClickBaunia.class);
+//                        startActivity(intent);
+//                    }
+//                },1000);
+
+
+
+
                 break;
             case R.id.iv_parise:
                 frameAnimation1.start();
