@@ -1,5 +1,7 @@
 package demo.kolorob.kolorobdemoversion.activity;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -7,6 +9,7 @@ import android.widget.ScrollView;
 
 import java.util.ArrayList;
 
+import demo.kolorob.kolorobdemoversion.Fragment.MapFragment;
 import demo.kolorob.kolorobdemoversion.R;
 import demo.kolorob.kolorobdemoversion.model.CategoryItem;
 import demo.kolorob.kolorobdemoversion.utils.AppConstants;
@@ -32,7 +35,8 @@ public class PlaceDetailsActivity extends BaseActivity {
         llCatListHolder = (LinearLayout) findViewById(R.id.llCategoryListHolder);
 
         categoryList = getCategoryList();
-        constructCategoryList(categoryList);
+        //constructCategoryList(categoryList);
+        callMapFragment();
     }
 
     private void constructCategoryList(ArrayList<CategoryItem> categoryList) {
@@ -43,7 +47,18 @@ public class PlaceDetailsActivity extends BaseActivity {
         }
     }
 
+    private void callMapFragment()
+    {
+        MapFragment mapFragment = new MapFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.map_fragment, mapFragment);
+        fragmentTransaction.commit();
+    }
+
     private View getCategoryListItemView(CategoryItem ci) {
+
+
         return null;
     }
 
