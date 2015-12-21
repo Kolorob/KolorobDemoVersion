@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/place_details_bg"
+    android:orientation="vertical"
+    tools:context=".activity.PlaceDetailsActivity">
+
+    <ScrollView
+        android:id="@+id/svCategoryListHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/semi_transparent">
+
+        <LinearLayout
+            android:id="@+id/llCategoryListHolder"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <!--Java is used to put category items inside here-->
+            <!--<ImageView
+                android:id="@+id/ivEduCatListPlaceDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_edu"/>
+
+            <ImageView
+                android:id="@+id/ivHealthCatListPlaceDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_health"/>
+
+            <ImageView
+                android:id="@+id/ivGovtCatListPlaceDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_govt"/>
+
+            <ImageView
+                android:id="@+id/ivLawCatListPlaceDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_law"/>
+
+            <ImageView
+                android:id="@+id/ivMoneyCatListPlaceDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_money"/>
+
+            <ImageView
+                android:id="@+id/ivJobCatListPlaceDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_job"/>
+
+            <ImageView
+                android:id="@+id/ivFunCatListPlaceDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ico_fun"/>-->
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
