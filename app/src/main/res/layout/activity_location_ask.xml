@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="400dp"
     android:fitsSystemWindows="true"
-    tools:context="demo.kolorob.kolorobdemoversion.Activity.LocationAskActivity"
+    tools:context="demo.kolorob.kolorobdemoversion.activity.LocationAskActivity"
     android:background="@drawable/torn_paper">
 
     <TextView
