@@ -139,7 +139,7 @@ public class AppUtils {
     }
 
 
-    private static boolean isNetConnected(Context context) {
+    public static boolean isNetConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();

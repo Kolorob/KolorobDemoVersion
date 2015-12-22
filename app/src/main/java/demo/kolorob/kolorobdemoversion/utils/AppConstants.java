@@ -9,6 +9,8 @@ import demo.kolorob.kolorobdemoversion.R;
  */
 public class AppConstants {
 
+    public static final String API_URL = "http://kolorob.net/KolorobApi/api/";
+
     public static final String[] ALL_CAT_BN = {"পড়াশুনা", "আনন্দ ফুর্তি", "সরকারী সুবিধা", "চিকিৎসা", "চাকরি বাকরি",
             "আইন কানুন", "টাকা পয়সা"};
     public static final String[] ALL_CAT_DETAIL_BN = {"some details on পড়াশুনা", "some details on আনন্দ ফুর্তি",
@@ -65,5 +67,11 @@ public class AppConstants {
     public static final String KEY_PLACE = "place";
     public static final int PLACE_BAUNIABADH = 1;
     public static final int PLACE_PARIS_ROAD = 2;
+    //endregion
+
+    //region Server status codes
+    public static final int SUCCESS_CODE = 101;
+    public static final int ERR_CODE = -101;
+    public static final int ERR_VOLLEY_CODE = -110;
     //endregion
 }

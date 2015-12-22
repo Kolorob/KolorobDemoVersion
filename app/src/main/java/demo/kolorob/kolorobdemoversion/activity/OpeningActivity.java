@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import demo.kolorob.kolorobdemoversion.R;
+import demo.kolorob.kolorobdemoversion.interfaces.VolleyApiCallback;
+import demo.kolorob.kolorobdemoversion.parser.VolleyApiParser;
 
 
 public class OpeningActivity extends BaseActivity {
@@ -65,6 +67,14 @@ public class OpeningActivity extends BaseActivity {
 
         kolorob_logo.setMargins(0, 15, 0, 0);
         kolorobLogo.setLayoutParams(kolorob_logo);
+
+        VolleyApiParser.getRequest(OpeningActivity.this, "get_categories", new VolleyApiCallback() {
+                    @Override
+                    public void onResponse(int status, String apiContent) {
+                        
+                    }
+                }
+        );
 
         new Handler().postDelayed(new Runnable() {
 
