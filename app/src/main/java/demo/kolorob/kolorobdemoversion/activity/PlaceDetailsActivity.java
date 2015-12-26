@@ -121,8 +121,19 @@ public class PlaceDetailsActivity extends BaseActivity {
         decCatListWidth(dwPerc);
 
         // TODO Inflate the sub-category list from right
-        RelativeLayout rlSubCatHolder = (RelativeLayout) findViewById(R.id.rlSubCatHolder);
-        rlSubCatHolder.startAnimation(slideInFromRightAnim());
+        final RelativeLayout rlSubCatHolder = (RelativeLayout) findViewById(R.id.rlSubCatHolder);
+        rlSubCatHolder.startAnimation(slideOutFromLeftAnim());
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rlSubCatHolder.startAnimation(slideInFromRightAnim());
+            }
+        }, ANIM_INTERVAL *
+                (int) (200 *
+                        (AppConstants.CAT_LIST_LG_WIDTH_PERC
+                                - AppConstants.CAT_LIST_SM_WIDTH_PERC)
+                ));
+
     }
 
     private void decCatListWidth(final double dwPerc) {
@@ -174,7 +185,7 @@ public class PlaceDetailsActivity extends BaseActivity {
     private Animation slideOutFromLeftAnim() {
         Animation outToLeft = new TranslateAnimation(
                 Animation.RELATIVE_TO_PARENT, 0.0f,
-                Animation.RELATIVE_TO_PARENT, -1.0f,
+                Animation.RELATIVE_TO_PARENT, +0.95f,
                 Animation.RELATIVE_TO_PARENT, 0.0f,
                 Animation.RELATIVE_TO_PARENT, 0.0f);
         outToLeft.setDuration(ANIM_INTERVAL *
