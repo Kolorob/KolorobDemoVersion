@@ -23,7 +23,7 @@
         android:padding="3dp"
         android:text="Health"
         android:textColor="@color/white"
-        android:textSize="19sp"
+        android:textSize="15sp"
         tools:ignore="HardcodedText" />
 
 </LinearLayout>
