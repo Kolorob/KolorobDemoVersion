@@ -120,12 +120,13 @@ public class PlaceDetailsActivity extends BaseActivity {
         isCatExpandedOnce = true;
         decCatListWidth(dwPerc);
 
-        // TODO Inflate the sub-category list from right
+        // TO_DO Inflate the sub-category list from right
         final RelativeLayout rlSubCatHolder = (RelativeLayout) findViewById(R.id.rlSubCatHolder);
         rlSubCatHolder.startAnimation(slideOutFromLeftAnim());
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                // TODO Sub-category list generation
                 rlSubCatHolder.startAnimation(slideInFromRightAnim());
             }
         }, ANIM_INTERVAL *
