@@ -11,6 +11,7 @@ import demo.kolorob.kolorobdemoversion.R;
 import demo.kolorob.kolorobdemoversion.database.CategoryTable;
 import demo.kolorob.kolorobdemoversion.model.CategoryItem;
 import demo.kolorob.kolorobdemoversion.utils.AppConstants;
+import demo.kolorob.kolorobdemoversion.utils.Lg;
 
 /**
  * Created by touhid on 12/3/15.
@@ -19,6 +20,7 @@ import demo.kolorob.kolorobdemoversion.utils.AppConstants;
  */
 public class PlaceDetailsActivity extends BaseActivity {
 
+    private static final String TAG = PlaceDetailsActivity.class.getSimpleName();
     private ScrollView svCatList;
     private LinearLayout llCatListHolder;
 
@@ -38,7 +40,8 @@ public class PlaceDetailsActivity extends BaseActivity {
         // constructCategoryList(categoryList, 1.0);
         llCatListHolder.removeAllViews();
         for (CategoryItem ci:categoryList) {
-            llCatListHolder.addView(getCategoryListItemView(ci));
+            Lg.d(TAG, ci.toString());
+            //llCatListHolder.addView(getCategoryListItemView(ci));
         }
     }
 
