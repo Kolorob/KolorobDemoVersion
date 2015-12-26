@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -60,6 +61,7 @@ public class PlaceDetailsActivity extends BaseActivity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        // Ignoring the device orientation change (always on portrait ensured) :: #HARD_CODED_(:()
         // super.onConfigurationChanged(newConfig);
     }
 
@@ -69,7 +71,6 @@ public class PlaceDetailsActivity extends BaseActivity {
 
     private void constructCategoryList(ArrayList<CategoryItem> categoryList, double dwPercentage) {
         llCatListHolder.removeAllViews();
-
         for (CategoryItem ci : categoryList) {
             llCatListHolder.addView(getCategoryListItemView(ci, dwPercentage));
         }
@@ -91,12 +92,11 @@ public class PlaceDetailsActivity extends BaseActivity {
         tvName.setText(ci.getCatName());
         tvName.setTextSize((float) (VIEW_WIDTH * .10 * dwPercentage));
 
-        // TODO set on-click listener
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<String> subCatList = getSubCategoryList(ci.getId());
-                Lg.d(TAG, "Sub-ategory populated: " + subCatList.size()
+                Lg.d(TAG, "Sub-category populated: " + subCatList.size()
                         + ", first item=" + subCatList.get(0));
                 if (isCatExpandedOnce)
                     showAnimatedSubcategories(subCatList, .3); // AppConstants.CAT_LIST_SM_WIDTH_PERC);
@@ -121,6 +121,8 @@ public class PlaceDetailsActivity extends BaseActivity {
         decCatListWidth(dwPerc);
 
         // TODO Inflate the sub-category list from right
+        RelativeLayout rlSubCatHolder = (RelativeLayout) findViewById(R.id.rlSubCatHolder);
+        rlSubCatHolder.startAnimation(slideInFromRightAnim());
     }
 
     private void decCatListWidth(final double dwPerc) {
@@ -128,8 +130,7 @@ public class PlaceDetailsActivity extends BaseActivity {
             @Override
             public void run() {
                 Lg.i(TAG, "decCatListWidth : dwPerc = " + dwPerc);
-                if (dwPerc <
-                        (1.0 - AppConstants.CAT_LIST_LG_WIDTH_PERC + AppConstants.CAT_LIST_SM_WIDTH_PERC))
+                if (dwPerc < .6)
                     return;
 
                 // Decrease category-list width
@@ -168,5 +169,21 @@ public class PlaceDetailsActivity extends BaseActivity {
         );
         inFromRight.setInterpolator(new AccelerateInterpolator());
         return inFromRight;
+    }
+
+    private Animation slideOutFromLeftAnim() {
+        Animation outToLeft = new TranslateAnimation(
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, -1.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f,
+                Animation.RELATIVE_TO_PARENT, 0.0f);
+        outToLeft.setDuration(ANIM_INTERVAL *
+                        (int) (200 *
+                                (AppConstants.CAT_LIST_LG_WIDTH_PERC
+                                        - AppConstants.CAT_LIST_SM_WIDTH_PERC)
+                        )
+        );
+        outToLeft.setInterpolator(new AccelerateInterpolator());
+        return outToLeft;
     }
 }

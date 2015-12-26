@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/place_details_bg"
-    android:orientation="vertical"
-    tools:context=".activity.PlaceDetailsActivity">
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@drawable/place_details_bg"
+             android:orientation="vertical"
+             tools:context=".activity.PlaceDetailsActivity">
 
     <ScrollView
         android:id="@+id/svCategoryListHolder"
@@ -17,10 +17,10 @@
             android:id="@+id/llCategoryListHolder"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:orientation="vertical"
             android:gravity="center"
-            android:layout_gravity="center">
+            android:orientation="vertical">
 
             <!--Java is used to put category items inside here-->
             <!--<ImageView
@@ -75,5 +75,74 @@
         android:background="@color/semi_transparent">
 
     </LinearLayout>-->
+    <RelativeLayout
+        android:id="@+id/rlSubCatHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="44dp">
+
+        <LinearLayout
+            android:id="@+id/llSubCatListHeadIconHolder"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
+            android:background="@color/black"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivHeadCatIconSubCatList"
+                android:layout_width="86dp"
+                android:layout_height="86dp"
+                android:background="@color/black"
+                android:contentDescription="@string/txt_cd_header_icon_ofcat_subcatlist"
+                android:padding="7dp"
+                android:src="@drawable/ico_edu"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Category name"
+                tools:ignore="HardcodedText"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSubCatListHolder"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginTop="6dp"
+            android:layout_toEndOf="@+id/llSubCatListHeadIconHolder"
+            android:layout_toRightOf="@+id/llSubCatListHeadIconHolder"
+            android:background="@color/semi_transparent"
+            android:orientation="horizontal"
+            android:padding="7dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llSubCatListHolder"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_toEndOf="@+id/llSubCatListHeadIconHolder"
+            android:layout_toRightOf="@+id/llSubCatListHeadIconHolder"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvInstructionSubCat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:padding="7dp"
+                android:visibility="gone"
+                android:text="@string/txt_sub_cat_inst"
+                android:textColor="@color/red"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="@string/txt_inst_sub_cat_choose"/>
+        </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>
