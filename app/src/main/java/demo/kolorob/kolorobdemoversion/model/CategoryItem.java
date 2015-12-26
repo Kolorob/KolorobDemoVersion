@@ -1,5 +1,8 @@
 package demo.kolorob.kolorobdemoversion.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -7,28 +10,27 @@ import java.io.Serializable;
  * @author touhid
  */
 public class CategoryItem implements Serializable{
+    private int id;
+    private String catName;
+    private boolean catActive;
 
-    private int iconId;
-    private String catName, otherDetails;
-
-    public CategoryItem(int iconId, String catName, String otherDetails) {
-        this.iconId = iconId;
+    public CategoryItem(int id, String catName, boolean catActive) {
+        this.id = id;
         this.catName = catName;
-        this.otherDetails = otherDetails;
+        this.catActive = catActive;
     }
 
-    public CategoryItem(int iconId, String catName) {
-        this.iconId = iconId;
+    public CategoryItem(int id, String catName) {
+        this.id = id;
         this.catName = catName;
-        this.otherDetails = "";
     }
 
-    public int getIconId() {
-        return iconId;
+    public int getId() {
+        return id;
     }
 
-    public void setIconId(int iconId) {
-        this.iconId = iconId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCatName() {
@@ -39,20 +41,28 @@ public class CategoryItem implements Serializable{
         this.catName = catName;
     }
 
-    public String getOtherDetails() {
-        return otherDetails;
+    public boolean isCatActive() {
+        return catActive;
     }
 
-    public void setOtherDetails(String otherDetails) {
-        this.otherDetails = otherDetails;
+    public void setCatActive(boolean catActive) {
+        this.catActive = catActive;
     }
 
     @Override
     public String toString() {
         return "CategoryItem{" +
-                "iconId=" + iconId +
+                "id=" + id +
                 ", catName='" + catName + '\'' +
-                ", otherDetails='" + otherDetails + '\'' +
+                ", catActive=" + catActive +
                 '}';
+    }
+
+    public static CategoryItem parseCategoryItem(JSONObject jo) throws JSONException {
+        int id = jo.getInt("category_id");
+        String name = jo.getString("name");
+        boolean isActive = jo.getBoolean("active");
+
+        return new CategoryItem(id, name, isActive);
     }
 }

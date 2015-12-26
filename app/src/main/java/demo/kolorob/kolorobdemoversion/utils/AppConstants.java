@@ -73,5 +73,10 @@ public class AppConstants {
     public static final int SUCCESS_CODE = 101;
     public static final int ERR_CODE = -101;
     public static final int ERR_VOLLEY_CODE = -110;
+
+    public static final String KEY_STATUS = "status";
+    public static final String KEY_DATA = "data";
+    public static final String KEY_SUCCESS = "success";
+    public static final String KEY_ERROR = "error";
     //endregion
 }

@@ -10,35 +10,37 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import demo.kolorob.kolorobdemoversion.R;
+import demo.kolorob.kolorobdemoversion.database.CategoryTable;
 import demo.kolorob.kolorobdemoversion.interfaces.VolleyApiCallback;
+import demo.kolorob.kolorobdemoversion.model.CategoryItem;
 import demo.kolorob.kolorobdemoversion.parser.VolleyApiParser;
+import demo.kolorob.kolorobdemoversion.utils.AppConstants;
 
 
 public class OpeningActivity extends BaseActivity {
 
     private final static int SPLASH_TIME_OUT = 500;
-    private LinearLayout boy;
-    private LinearLayout girl;
-    private LinearLayout shadowBoy;
-    private LinearLayout shadowGirl;
-    private ImageView kolorobLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opening);
 
-        kolorobLogo = (ImageView) findViewById(R.id.iv_kolorob_logo);
+        ImageView kolorobLogo = (ImageView) findViewById(R.id.iv_kolorob_logo);
 
         DisplayMetrics displayMetrics = this.getResources().getDisplayMetrics();
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        boy = (LinearLayout) findViewById(R.id.boy);
-        girl = (LinearLayout) findViewById(R.id.girl);
-        shadowBoy = (LinearLayout) findViewById(R.id.shadow_boy);
-        shadowGirl = (LinearLayout) findViewById(R.id.shadow_girl);
+        LinearLayout boy = (LinearLayout) findViewById(R.id.boy);
+        LinearLayout girl = (LinearLayout) findViewById(R.id.girl);
+        LinearLayout shadowBoy = (LinearLayout) findViewById(R.id.shadow_boy);
+        LinearLayout shadowGirl = (LinearLayout) findViewById(R.id.shadow_girl);
 
 
         RelativeLayout.LayoutParams kolorob_logo = new RelativeLayout.LayoutParams(width, height / 3);
@@ -71,7 +73,16 @@ public class OpeningActivity extends BaseActivity {
         VolleyApiParser.getRequest(OpeningActivity.this, "get_categories", new VolleyApiCallback() {
                     @Override
                     public void onResponse(int status, String apiContent) {
-                        
+                        if (status == AppConstants.SUCCESS_CODE) {
+                            try {
+                                JSONObject jo = new JSONObject(apiContent);
+                                String apiSt = jo.getString(AppConstants.KEY_STATUS);
+                                if (apiSt.equals(AppConstants.KEY_SUCCESS))
+                                    saveCategoryList(jo.getJSONArray(AppConstants.KEY_DATA));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
         );
@@ -92,6 +103,21 @@ public class OpeningActivity extends BaseActivity {
             }
         }, SPLASH_TIME_OUT);
 
+    }
+
+    /** Written by : Touhid */
+    private void saveCategoryList(JSONArray categoryArray) {
+        CategoryTable catTable = new CategoryTable(OpeningActivity.this);
+        int catCount = categoryArray.length();
+        for (int i = 0; i < catCount; i++) {
+            try {
+                JSONObject jo = categoryArray.getJSONObject(i);
+                CategoryItem ci = CategoryItem.parseCategoryItem(jo);
+                catTable.insertItem(ci);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

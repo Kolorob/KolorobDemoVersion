@@ -8,6 +8,7 @@ import android.widget.ScrollView;
 import java.util.ArrayList;
 
 import demo.kolorob.kolorobdemoversion.R;
+import demo.kolorob.kolorobdemoversion.database.CategoryTable;
 import demo.kolorob.kolorobdemoversion.model.CategoryItem;
 import demo.kolorob.kolorobdemoversion.utils.AppConstants;
 
@@ -21,8 +22,6 @@ public class PlaceDetailsActivity extends BaseActivity {
     private ScrollView svCatList;
     private LinearLayout llCatListHolder;
 
-    private ArrayList<CategoryItem> categoryList;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +30,8 @@ public class PlaceDetailsActivity extends BaseActivity {
         svCatList = (ScrollView) findViewById(R.id.svCategoryListHolder);
         llCatListHolder = (LinearLayout) findViewById(R.id.llCategoryListHolder);
 
-        categoryList = getCategoryList();
-        constructCategoryList(categoryList);
+        CategoryTable categoryTable = new CategoryTable(PlaceDetailsActivity.this);
+        constructCategoryList(categoryTable.getAllCategories());
     }
 
     private void constructCategoryList(ArrayList<CategoryItem> categoryList) {
@@ -54,7 +53,7 @@ public class PlaceDetailsActivity extends BaseActivity {
         }*/
     }
 
-    private ArrayList<CategoryItem> getCategoryList() {
+    /*private ArrayList<CategoryItem> getCategoryList() {
         ArrayList<CategoryItem> catList = new ArrayList<>();
         int l = AppConstants.ALL_CAT_BN.length;
         for (int i = 0; i < l; i++) {
@@ -67,5 +66,5 @@ public class PlaceDetailsActivity extends BaseActivity {
             );
         }
         return catList;
-    }
+    }*/
 }
