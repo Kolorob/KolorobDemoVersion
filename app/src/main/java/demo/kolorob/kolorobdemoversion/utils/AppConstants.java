@@ -31,6 +31,10 @@ public class AppConstants {
     public static final String[][] SUB_CATEGORIES = {SUB_CAT_EDU_BN, SUB_CAT_FUN_BN, SUB_CAT_GOVT_BN,
             SUB_CAT_HEALTH_BN, SUB_CAT_JOB_BN, SUB_CAT_LAW_BN, SUB_CAT_MONEY_BN};
 
+    public static final double CAT_LIST_LG_WIDTH_PERC = 0.15;
+    public static final double CAT_LIST_SM_WIDTH_PERC = 0.08;
+
+
     //region category IDs
     public static final int CAT_EDU = 101;
     public static final int CAT_FUN = 102;
