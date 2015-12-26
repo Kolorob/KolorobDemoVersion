@@ -16,8 +16,10 @@ import org.json.JSONObject;
 
 import demo.kolorob.kolorobdemoversion.R;
 import demo.kolorob.kolorobdemoversion.database.CategoryTable;
+import demo.kolorob.kolorobdemoversion.database.SubCategoryTable;
 import demo.kolorob.kolorobdemoversion.interfaces.VolleyApiCallback;
 import demo.kolorob.kolorobdemoversion.model.CategoryItem;
+import demo.kolorob.kolorobdemoversion.model.SubCategoryItem;
 import demo.kolorob.kolorobdemoversion.parser.VolleyApiParser;
 import demo.kolorob.kolorobdemoversion.utils.AppConstants;
 
@@ -87,6 +89,23 @@ public class OpeningActivity extends BaseActivity {
                 }
         );
 
+        VolleyApiParser.getRequest(OpeningActivity.this, "get_sub_categories", new VolleyApiCallback() {
+                    @Override
+                    public void onResponse(int status, String apiContent) {
+                        if (status == AppConstants.SUCCESS_CODE) {
+                            try {
+                                JSONObject jo = new JSONObject(apiContent);
+                                String apiSt = jo.getString(AppConstants.KEY_STATUS);
+                                if (apiSt.equals(AppConstants.KEY_SUCCESS))
+                                    saveSubCategoryList(jo.getJSONArray(AppConstants.KEY_DATA));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+        );
+
         new Handler().postDelayed(new Runnable() {
 
             /*
@@ -114,6 +133,20 @@ public class OpeningActivity extends BaseActivity {
                 JSONObject jo = categoryArray.getJSONObject(i);
                 CategoryItem ci = CategoryItem.parseCategoryItem(jo);
                 catTable.insertItem(ci);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void saveSubCategoryList(JSONArray subCategoryArray) {
+        SubCategoryTable subCatTable = new SubCategoryTable(OpeningActivity.this);
+        int subCatCount = subCategoryArray.length();
+        for (int i = 0; i < subCatCount; i++) {
+            try {
+                JSONObject jo = subCategoryArray.getJSONObject(i);
+                SubCategoryItem si = SubCategoryItem.parseSubCategoryItem(jo);
+                subCatTable.insertItem(si);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
