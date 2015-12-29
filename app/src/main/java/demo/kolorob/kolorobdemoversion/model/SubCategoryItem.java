@@ -12,11 +12,13 @@ public class SubCategoryItem implements Serializable {
     private int id;
     private int catId;
     private String subCatName;
+    private String subCatHeader;
 
-    public SubCategoryItem(int cat_id, int id,String subsubCatName) {
+    public SubCategoryItem(int cat_id, int id,String subsubCatName,String subCatHeader) {
         this.id = id;
         this.catId = cat_id;
         this.subCatName = subsubCatName;
+        this.subCatHeader = subCatHeader;
     }
 
     public SubCategoryItem(int id, String subsubCatName) {
@@ -34,6 +36,11 @@ public class SubCategoryItem implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSubcatHeader()
+    {
+        return subCatHeader;
     }
 
     public String getSubCatName() {
@@ -58,6 +65,7 @@ public class SubCategoryItem implements Serializable {
         int cat_id = jo.getInt("category_id");
         int id = jo.getInt("subcategory_id");
         String name = jo.getString("subcategory_name");
-        return new SubCategoryItem(cat_id,id, name);
+        String head = jo.getString("subcategory_header");
+        return new SubCategoryItem(cat_id,id, name,head);
     }
 }

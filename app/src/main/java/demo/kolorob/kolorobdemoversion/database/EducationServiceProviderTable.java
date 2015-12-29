@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import demo.kolorob.kolorobdemoversion.model.CategoryItem;
 import demo.kolorob.kolorobdemoversion.model.Education.EducationServiceProviderItem;
+import demo.kolorob.kolorobdemoversion.utils.AppConstants;
 import demo.kolorob.kolorobdemoversion.utils.Lg;
 
 
@@ -318,6 +319,24 @@ public class EducationServiceProviderTable  {
         //System.out.println(cat_id+"  "+sub_cat_id);
         SQLiteDatabase db = openDB();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE "+KEY_CATEGORY_ID+"="+cat_id, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                //System.out.println("abc="+cursor.getString(4));
+                subCatList.add(cursorToSubCatList(cursor));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        closeDB();
+        return subCatList;
+    }
+
+    public ArrayList<EducationServiceProviderItem> getAllEducationSubCategoriesInfoWithHead(int cat_id,String header) {
+        ArrayList<EducationServiceProviderItem> subCatList = new ArrayList<>();
+        //System.out.println(cat_id+"  "+sub_cat_id);
+        SQLiteDatabase db = openDB();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME +" WHERE "+KEY_CATEGORY_ID+"="+cat_id
+                + " AND " +KEY_EDU_SUBCATEGORY_ID + " in (SELECT _sub_cat_id from "+ DatabaseHelper.SUB_CATEGORY + " WHERE _sub_cat_header = '"+header+"')", null);
 
         if (cursor.moveToFirst()) {
             do {

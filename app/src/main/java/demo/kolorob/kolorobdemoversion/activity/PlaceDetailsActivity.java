@@ -1,5 +1,6 @@
 package demo.kolorob.kolorobdemoversion.activity;
 
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -71,6 +72,8 @@ public class PlaceDetailsActivity extends BaseActivity  implements View.OnClickL
     private String locationName;
 
     private ArrayList<EducationServiceProviderItem> currentEducationServiceProvider;
+    private ArrayList<SubCategoryItem> currentSubCategoryItem;
+    private int currentCategoryID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +149,7 @@ public class PlaceDetailsActivity extends BaseActivity  implements View.OnClickL
         subCatItemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EducationServiceProviderItem currEduItem=null;
+                /*EducationServiceProviderItem currEduItem=null;
                 int i = 0;
                 for(EducationServiceProviderItem et : currentEducationServiceProvider)
                 {
@@ -157,7 +160,56 @@ public class PlaceDetailsActivity extends BaseActivity  implements View.OnClickL
                 }
                 Intent ii = new Intent(PlaceDetailsActivity.this,DetailsInfoActivity.class);
                 ii.putExtra(AppConstants.KEY_DETAILS_VIEW,currEduItem);
-                startActivity(ii);
+                startActivity(ii);*/
+                int subcategoryId=0;
+                int i=0;
+                for(SubCategoryItem ct:currentSubCategoryItem)
+                {
+                    if(i==position)
+                    {
+                        subcategoryId=ct.getId();
+                    }
+                    i++;
+                }
+
+                EducationServiceProviderTable educationServiceProviderTables = new EducationServiceProviderTable(PlaceDetailsActivity.this);
+                ArrayList<EducationServiceProviderItem> educationServiceProviderItems;
+                educationServiceProviderItems = educationServiceProviderTables.getAllEducationSubCategoriesInfo(currentCategoryID,subcategoryId);
+                ArrayList<String> itemName = new ArrayList<String>();
+                currentEducationServiceProvider = educationServiceProviderItems;
+                for(EducationServiceProviderItem si : educationServiceProviderItems)
+                {
+                    itemName.add(si.getEduNameEng());
+                }
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(PlaceDetailsActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                View convertView = (View) inflater.inflate(R.layout.subcat_item_list, null);
+                TextView head = (TextView) convertView.findViewById(R.id.tv_item_hd);
+                String header =subCatItemList.getItemAtPosition(position).toString();
+                head.setText(header);
+                alertDialog.setView(convertView);
+                ListView lv = (ListView) convertView.findViewById(R.id.subcat_list);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(PlaceDetailsActivity.this, R.layout.sub_cat_item_list_item,R.id.textView5, itemName);
+                lv.setAdapter(adapter);
+                alertDialog.show();
+
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        EducationServiceProviderItem currEduItem=null;
+                        int i = 0;
+                        for(EducationServiceProviderItem et : currentEducationServiceProvider)
+                        {
+                             if(i==position)
+                             {
+                                currEduItem = et;
+                             }
+                        }
+                        Intent ii = new Intent(PlaceDetailsActivity.this,DetailsInfoActivity.class);
+                        ii.putExtra(AppConstants.KEY_DETAILS_VIEW,currEduItem);
+                        startActivity(ii);
+                    }
+                });
             }
         });
     }
@@ -198,13 +250,13 @@ public class PlaceDetailsActivity extends BaseActivity  implements View.OnClickL
         fragmentTransaction.commit();
     }
 
-    private void callMapFragmentWithInfo(String item_name,int cat_id,ArrayList<EducationServiceProviderItem> educationServiceProvider)
+    private void callMapFragmentWithInfo(String item_name,int cat_id,ArrayList<EducationServiceProviderItem> educationServiceProviderItems)
     {
         MapFragment mapFragment = new MapFragment();
         mapFragment.setLocationName(locationName);
         mapFragment.setMapIndicatorText(item_name);
         mapFragment.setCategoryId(cat_id);
-        mapFragment.setEducationServiceProvider(educationServiceProvider);
+        mapFragment.setEducationServiceProvider(educationServiceProviderItems);
         mapFragment.setLocationNameId(locationNameId);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -258,8 +310,8 @@ public class PlaceDetailsActivity extends BaseActivity  implements View.OnClickL
                 categoryHeader.setText(ci.getCatName());
                 categoryHeaderIcon.setImageResource(AppConstants.ALL_CAT_ICONS[ci.getId() - 1]);
 
-                Lg.d(TAG, "Sub-category populated: " + subCatList.size()
-                        + ", first item=" + subCatList.get(0));
+                //Lg.d(TAG, "Sub-category populated: " + subCatList.size()
+                      //  + ", first item=" + subCatList.get(0));
                 if (isCatExpandedOnce)
                     showAnimatedSubcategories(subCatList, .3,AppConstants.ALL_CAT_ICONS[ci.getId() - 1],ci.getId()); // AppConstants.CAT_LIST_SM_WIDTH_PERC);
                 else
@@ -269,25 +321,31 @@ public class PlaceDetailsActivity extends BaseActivity  implements View.OnClickL
 
         return v;
     }
-    public void constructSubCategoryItemList(int cat_id,int sub_cat_id)
+    public void constructSubCategoryItemList(int cat_id,String header)
     {
-        ArrayList<EducationServiceProviderItem> educationServiceProvider;
-        educationServiceProvider = constructSubCategoryListItem(cat_id,sub_cat_id);
+        ArrayList<SubCategoryItem> subCategoryItems;
+        subCategoryItems = constructSubCategoryListItem(cat_id,header);
         ArrayList<String> itemName = new ArrayList<String>();
-        currentEducationServiceProvider = educationServiceProvider;
-        for(EducationServiceProviderItem et : educationServiceProvider)
+        //currentEducationServiceProvider = educationServiceProvider;
+        currentSubCategoryItem = subCategoryItems;
+        currentCategoryID=cat_id;
+        for(SubCategoryItem si : subCategoryItems)
         {
-            itemName.add(et.getEduNameEng());
+            itemName.add(si.getSubCatName());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(PlaceDetailsActivity.this, R.layout.sub_cat_item_list_item,R.id.textView5, itemName);
         subCatItemList.setAdapter(adapter);
     }
-    private ArrayList<EducationServiceProviderItem> constructSubCategoryListItem(int cat_id,int sub_cat_id)
+    private ArrayList<SubCategoryItem> constructSubCategoryListItem(int cat_id,String header)
     {
-        ArrayList<EducationServiceProviderItem> educationServiceProvider;
-        EducationServiceProviderTable educationServiceProviderTable = new EducationServiceProviderTable(PlaceDetailsActivity.this);
-        educationServiceProvider = educationServiceProviderTable.getAllEducationSubCategoriesInfo(cat_id,sub_cat_id);
-        return educationServiceProvider;
+        //ArrayList<EducationServiceProviderItem> educationServiceProvider;
+        //EducationServiceProviderTable educationServiceProviderTable = new EducationServiceProviderTable(PlaceDetailsActivity.this);
+        //educationServiceProvider = educationServiceProviderTable.getAllEducationSubCategoriesInfo(cat_id,header);
+        ArrayList<SubCategoryItem> subCategoryItems;
+        SubCategoryTable subCategoryTable = new SubCategoryTable(PlaceDetailsActivity.this);
+        subCategoryItems=subCategoryTable.getAllSubCategoriesHeader(cat_id,header);
+
+        return subCategoryItems;
     }
     private ArrayList<EducationServiceProviderItem> constructSubCategoryListItem(int cat_id)
     {
@@ -298,8 +356,14 @@ public class PlaceDetailsActivity extends BaseActivity  implements View.OnClickL
     }
     private void constructSubCategoryList(ArrayList<SubCategoryItem> subCategoryList,double dwPercentage,int cat_id) {
         llSubCatListHolder.removeAllViews();
+        ArrayList<String> header = new ArrayList<>();
         for (SubCategoryItem si : subCategoryList) {
-            llSubCatListHolder.addView(getSubCategoryListItemView(si,dwPercentage,cat_id));
+            if(!header.contains(si.getSubcatHeader()))
+            {
+                header.add(si.getSubcatHeader());
+                llSubCatListHolder.addView(getSubCategoryListItemView(si,dwPercentage,cat_id));
+            }
+            //llSubCatListHolder.addView(getSubCategoryListItemView(si,dwPercentage,cat_id));
 
         }
     }
@@ -314,18 +378,22 @@ public class PlaceDetailsActivity extends BaseActivity  implements View.OnClickL
         lpIv.width = (int) (primaryIconWidth * dwPercentage);
         ivIcon.setLayoutParams(lpIv);
 
-        tvName.setText(si.getSubCatName());
+        //tvName.setText(si.getSubCatName());
+        tvName.setText(si.getSubcatHeader());
         tvName.setTextSize((float) (VIEW_WIDTH * .10 * dwPercentage));
 
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<EducationServiceProviderItem> educationServiceProvider;
-                educationServiceProvider = constructSubCategoryListItem(cat_id,si.getId());
+                ArrayList<SubCategoryItem> subCategoryItems;
+                subCategoryItems = constructSubCategoryListItem(cat_id,si.getSubcatHeader());
+                EducationServiceProviderTable edu = new EducationServiceProviderTable(PlaceDetailsActivity.this);
+                ArrayList<EducationServiceProviderItem>eduItem;
+                eduItem = edu.getAllEducationSubCategoriesInfoWithHead(cat_id,si.getSubcatHeader());
                 showSubCatListItem.setEnabled(true);
-                callMapFragmentWithInfo(si.getSubCatName(),cat_id,educationServiceProvider);
-                subCatItemListHeader.setText(si.getSubCatName());
-                constructSubCategoryItemList(cat_id,si.getId());
+                callMapFragmentWithInfo(si.getSubcatHeader(),cat_id,eduItem);
+                subCatItemListHeader.setText(si.getSubcatHeader());
+                constructSubCategoryItemList(cat_id,si.getSubcatHeader());
             }
         });
 
@@ -337,6 +405,7 @@ public class PlaceDetailsActivity extends BaseActivity  implements View.OnClickL
 
         SubCategoryTable subCategoryTable = new SubCategoryTable(PlaceDetailsActivity.this);
         return subCategoryTable.getAllSubCategories(id);
+        //return subCategoryTable.getAllSubCategoriesHeader(id);
     }
 
     private void showAnimatedSubcategories(final ArrayList<SubCategoryItem> subCatList, double dwPerc, int iconId, final int cat_id) {
