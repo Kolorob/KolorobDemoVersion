@@ -77,7 +77,7 @@ public class SubCategoryTable {
     }
 
     public boolean isFieldExist(int id,int cat_id) {
-        Lg.d(TAG, "isFieldExist : inside, id=" + id);
+       // Lg.d(TAG, "isFieldExist : inside, id=" + id);
         SQLiteDatabase db = openDB();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         if (cursor.moveToFirst()) {

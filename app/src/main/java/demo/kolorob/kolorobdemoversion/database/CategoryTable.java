@@ -78,7 +78,7 @@ public class CategoryTable {
     }
 
     public boolean isFieldExist(int id) {
-        Lg.d(TAG, "isFieldExist : inside, id=" + id);
+       // Lg.d(TAG, "isFieldExist : inside, id=" + id);
         SQLiteDatabase db = openDB();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         if (cursor.moveToFirst()) {
@@ -135,7 +135,7 @@ public class CategoryTable {
         SQLiteDatabase db = openDB();
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         createTable();
-        Lg.d(TAG, "Table dropped and recreated.");
+        //Lg.d(TAG, "Table dropped and recreated.");
         closeDB();
     }
 }

@@ -23,6 +23,7 @@ public class LocationInstructionActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(LocationInstructionActivity.this,PlaceChoiceActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }

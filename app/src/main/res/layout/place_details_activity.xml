@@ -5,7 +5,8 @@
              android:layout_height="match_parent"
              android:background="@drawable/place_details_bg"
              android:orientation="vertical"
-             tools:context=".activity.PlaceDetailsActivity">
+             tools:context=".activity.PlaceDetailsActivity"
+    android:id="@+id/place_details_layout">
 
     <ScrollView
         android:id="@+id/svCategoryListHolder"
@@ -84,7 +85,7 @@
 
         <LinearLayout
             android:id="@+id/llSubCatListHeadIconHolder"
-            android:layout_width="90dp"
+            android:layout_width="75dp"
             android:layout_height="120dp"
             android:background="@color/black"
             android:orientation="vertical"
@@ -92,7 +93,7 @@
 
             <ImageView
                 android:id="@+id/ivHeadCatIconSubCatList"
-                android:layout_width="90dp"
+                android:layout_width="75dp"
                 android:layout_height="75dp"
                 android:background="@color/black"
                 android:contentDescription="@string/txt_cd_header_icon_ofcat_subcatlist"
@@ -118,8 +119,7 @@
                 <ScrollView
 
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/semi_transparent">
+                    android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/llSubCatListHolder"
@@ -149,13 +149,33 @@
             android:id="@+id/llItemListHolder">
 
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="স্কুল এর নাম"
+                android:id="@+id/tv_sub_cat_item_list_head"
+                android:padding="7dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:textColor="#000000"
+                android:background="@color/yellow"
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sub_cat_item_list"
+                android:visibility="gone"
+                android:layout_marginTop="5dp" />
+
+            <TextView
                 android:id="@+id/tvInstructionSubCat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="7dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:text="@string/txt_sub_cat_inst"
                 android:textColor="@color/red"/>
 
@@ -164,15 +184,34 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:text="@string/txt_inst_sub_cat_choose"/>
+                android:text="@string/txt_inst_sub_cat_choose"
+                android:id="@+id/btn_show_sub_cat_list_item"
+                android:background="@color/gray"
+                android:padding="3dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ম্যাপ এ দেখেন"
+                android:id="@+id/btn_see_map"
+                android:background="@drawable/pullup_map"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@+id/llSubCatListHeadIconHolder"
-          ></FrameLayout>
+            android:id="@+id/map_fragment"
+            android:layout_below="@+id/llItemListHolder"
+            android:layout_alignRight="@+id/llItemListHolder"
+            android:layout_alignEnd="@+id/llItemListHolder"
+            android:layout_toEndOf="@+id/llSubCatListHeadIconHolder"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_toRightOf="@+id/llSubCatListHeadIconHolder"></FrameLayout>
     </RelativeLayout>
 
 </FrameLayout>
