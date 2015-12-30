@@ -102,5 +102,12 @@ public class AppConstants {
 
     public static final String KEY_DETAILS_VIEW = "eduProvider";
 
+    public static final int EDUCATION= 1;
+    public static final int HEALTH = 2;
+    public static final int ENTERTAINMENT = 3;
+    public static final int GOVERNMENT = 4;
+    public static final int LEGAL = 5;
+    public static final int FINANCIAL = 6;
+    public static final int JOB = 7;
 
 }

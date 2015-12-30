@@ -23,6 +23,7 @@ public class PlaceChoiceActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_choice);
 
+
         ImageView kolorobLogo = (ImageView) findViewById(R.id.iv_kolorob_logo);
         ImageView ivBauniaBandh = (ImageView) findViewById(R.id.iv_baunia);
         ImageView ivParisRoad = (ImageView) findViewById(R.id.iv_parise);
@@ -161,5 +162,11 @@ public class PlaceChoiceActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
             }
         }, DELAY_PLACE_DETAILS_LAUNCH_ANIM);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

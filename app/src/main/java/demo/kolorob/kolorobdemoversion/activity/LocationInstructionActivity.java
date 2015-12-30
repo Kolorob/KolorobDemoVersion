@@ -27,4 +27,10 @@ public class LocationInstructionActivity extends Activity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

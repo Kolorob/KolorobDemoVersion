@@ -44,5 +44,9 @@ public class LocationAskActivity extends Activity implements View.OnClickListene
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

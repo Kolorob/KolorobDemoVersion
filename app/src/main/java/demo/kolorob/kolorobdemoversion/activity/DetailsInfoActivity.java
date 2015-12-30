@@ -16,6 +16,12 @@ public class DetailsInfoActivity extends Activity  {
 
     ImageView close;
     TextView close_tv;
+
+    /**
+    * Following components are only for education
+    * For other categories this components may vary
+    * In that case design the layout for specific category and call them in  setContentView(R.layout.activity_details_info);
+    * */
     private TextView itemName;
     private TextView itemAddress;
     private TextView itemType;
@@ -30,7 +36,10 @@ public class DetailsInfoActivity extends Activity  {
     private TextView website;
     private TextView fb;
 
+    //TODO Declare object for each subcategory item. Different for each category. Depends on the database table.
     EducationServiceProviderItem educationServiceProviderItem;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +51,9 @@ public class DetailsInfoActivity extends Activity  {
             educationServiceProviderItem = (EducationServiceProviderItem)intent.getSerializableExtra(AppConstants.KEY_DETAILS_VIEW);
 
         }
-
+        /**
+        *following codes only for education. This may vary for different category.
+        * */
         itemName = (TextView) findViewById(R.id.tv_header);
         itemAddress = (TextView) findViewById(R.id.tv_item_location);
         itemType = (TextView) findViewById(R.id.tv_item_type);
@@ -72,6 +83,9 @@ public class DetailsInfoActivity extends Activity  {
         website.setText("ওয়েবসাইট ঃ  "+educationServiceProviderItem.getWebsiteLink());
         fb.setText("ফেসবুক ঃ  "+educationServiceProviderItem.getFbLink());
 
+
+
+        //common for all category
         close = (ImageView) findViewById(R.id.iv_close);
         close_tv = (TextView) findViewById(R.id.tv_close);
         close.setOnClickListener(new View.OnClickListener() {

@@ -44,7 +44,11 @@ public class MapFragment extends Fragment implements
     private String mapIndicatorText;
     private int categoryId;
     private int locationNameId;
+
+    //TODO Declare object array for each subcategory item. Different for each category. Depends on the database table.
     private ArrayList<EducationServiceProviderItem> educationServiceProvider=null;
+
+
     public MapFragment()
     {
 
@@ -61,14 +65,46 @@ public class MapFragment extends Fragment implements
     {
         categoryId = id;
     }
-    public void setEducationServiceProvider(ArrayList<EducationServiceProviderItem> et)
-    {
-        educationServiceProvider=et;
-    }
     public void setLocationNameId(int i)
     {
         locationNameId = i;
     }
+
+
+    //TODO Implement the set function for all subcategory item.
+
+    /********************set function for Education subcategory***********************/
+
+    public void setEducationServiceProvider(ArrayList<EducationServiceProviderItem> et)
+    {
+        educationServiceProvider=et;
+    }
+
+    /********************set function for Health subcategory***********************/
+
+
+
+    /********************set function for Entertainment subcategory*****************/
+
+
+
+    /********************set function for Government subcategory********************/
+
+
+
+    /********************set function for Legal subcategory***********************/
+
+
+
+    /********************set function for Financial subcategory***********************/
+
+
+
+    /********************set function for Job subcategory***********************/
+
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,7 +118,6 @@ public class MapFragment extends Fragment implements
         mapIndicator.setText(Html.fromHtml("সব " + mapIndicatorText + " এর স্থান ম্যাপ এ দেখানো হয়েছে"));
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
-
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
@@ -112,13 +147,6 @@ public class MapFragment extends Fragment implements
                 return true;
             }
         });
-        googleMap.setInfoWindowAdapter(new MapInfoWindowAdapter(getActivity(),educationServiceProvider));
-        if(educationServiceProvider!=null) {
-            for (EducationServiceProviderItem et : educationServiceProvider) {
-                LatLng location = new LatLng(Double.parseDouble(et.getLatitude()), Double.parseDouble(et.getLongitude()));
-                drawMarker(location, et.getEduNameEng());
-            }
-        }
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -126,24 +154,82 @@ public class MapFragment extends Fragment implements
             }
         });
 
+        switch (categoryId)
+        {
+            case AppConstants.EDUCATION:
+                googleMap.setInfoWindowAdapter(new MapInfoWindowAdapter(getActivity(),educationServiceProvider,categoryId));
+                if(educationServiceProvider!=null) {
+                    for (EducationServiceProviderItem et : educationServiceProvider) {
+                        LatLng location = new LatLng(Double.parseDouble(et.getLatitude()), Double.parseDouble(et.getLongitude()));
+                        drawMarker(location, et.getEduNameEng());
+                    }
+                }
+                break;
+            case AppConstants.HEALTH:
+                //TODO write necessary codes for health
+                break;
+            case AppConstants.ENTERTAINMENT:
+                //TODO write necessary codes for entertainment
+                break;
+            case AppConstants.GOVERNMENT:
+                //TODO write necessary codes for government
+                break;
+            case AppConstants.LEGAL:
+                //TODO write necessary codes for legal
+                break;
+            case AppConstants.FINANCIAL:
+                //TODO write necessary codes for financial
+                break;
+            case AppConstants.JOB:
+                //TODO write necessary codes for job
+                break;
+            default:
+                break;
+        }
+
 
         return rootView;
     }
     @Override
     public void onInfoWindowClick(Marker marker) {
         LatLng loc = marker.getPosition();
-        for(EducationServiceProviderItem et:educationServiceProvider)
+        switch (categoryId)
         {
-            Double lat = Double.parseDouble(et.getLatitude());
-            Double lon = Double.parseDouble(et.getLongitude());
-            System.out.println(lat +"  "+loc.latitude);
-            if(loc.latitude== lat && loc.longitude==lon)
-            {
-                Intent ii = new Intent(getActivity(),DetailsInfoActivity.class);
-                ii.putExtra(AppConstants.KEY_DETAILS_VIEW,et);
-                startActivity(ii);
+            case AppConstants.EDUCATION:
+                for(EducationServiceProviderItem et:educationServiceProvider)
+                {
+                    Double lat = Double.parseDouble(et.getLatitude());
+                    Double lon = Double.parseDouble(et.getLongitude());
+                    System.out.println(lat +"  "+loc.latitude);
+                    if(loc.latitude== lat && loc.longitude==lon)
+                    {
+                        Intent ii = new Intent(getActivity(),DetailsInfoActivity.class);
+                        ii.putExtra(AppConstants.KEY_DETAILS_VIEW,et);
+                        startActivity(ii);
+                        break;
+                    }
+                }
                 break;
-            }
+            case AppConstants.HEALTH:
+                //TODO write necessary codes for health
+                break;
+            case AppConstants.ENTERTAINMENT:
+                //TODO write necessary codes for entertainment
+                break;
+            case AppConstants.GOVERNMENT:
+                //TODO write necessary codes for government
+                break;
+            case AppConstants.LEGAL:
+                //TODO write necessary codes for legal
+                break;
+            case AppConstants.FINANCIAL:
+                //TODO write necessary codes for financial
+                break;
+            case AppConstants.JOB:
+                //TODO write necessary codes for job
+                break;
+            default:
+                break;
         }
     }
     private void drawMarker(LatLng point,String title){

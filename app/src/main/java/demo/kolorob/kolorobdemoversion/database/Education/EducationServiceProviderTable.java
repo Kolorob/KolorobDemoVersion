@@ -1,4 +1,4 @@
-package demo.kolorob.kolorobdemoversion.database;
+package demo.kolorob.kolorobdemoversion.database.Education;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,9 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import demo.kolorob.kolorobdemoversion.model.CategoryItem;
+import demo.kolorob.kolorobdemoversion.database.DatabaseHelper;
+import demo.kolorob.kolorobdemoversion.database.DatabaseManager;
 import demo.kolorob.kolorobdemoversion.model.Education.EducationServiceProviderItem;
-import demo.kolorob.kolorobdemoversion.utils.AppConstants;
 import demo.kolorob.kolorobdemoversion.utils.Lg;
 
 
