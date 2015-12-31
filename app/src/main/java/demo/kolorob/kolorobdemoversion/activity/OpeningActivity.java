@@ -1,14 +1,19 @@
 package demo.kolorob.kolorobdemoversion.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +34,7 @@ import demo.kolorob.kolorobdemoversion.utils.AppConstants;
 public class OpeningActivity extends BaseActivity {
 
     private final static int SPLASH_TIME_OUT = 500;
+    private static final int INTERNET_PERMISSION = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,72 +80,73 @@ public class OpeningActivity extends BaseActivity {
         kolorob_logo.setMargins(0, 15, 0, 0);
         kolorobLogo.setLayoutParams(kolorob_logo);
 
-        VolleyApiParser.getRequest(OpeningActivity.this, "get_categories", new VolleyApiCallback() {
-                    @Override
-                    public void onResponse(int status, String apiContent) {
-                        if (status == AppConstants.SUCCESS_CODE) {
-                            try {
-                                JSONObject jo = new JSONObject(apiContent);
-                                String apiSt = jo.getString(AppConstants.KEY_STATUS);
-                                if (apiSt.equals(AppConstants.KEY_SUCCESS))
-                                    saveCategoryList(jo.getJSONArray(AppConstants.KEY_DATA));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            VolleyApiParser.getRequest(OpeningActivity.this, "get_categories", new VolleyApiCallback() {
+                        @Override
+                        public void onResponse(int status, String apiContent) {
+                            if (status == AppConstants.SUCCESS_CODE) {
+                                try {
+                                    JSONObject jo = new JSONObject(apiContent);
+                                    String apiSt = jo.getString(AppConstants.KEY_STATUS);
+                                    if (apiSt.equals(AppConstants.KEY_SUCCESS))
+                                        saveCategoryList(jo.getJSONArray(AppConstants.KEY_DATA));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
-                }
-        );
+            );
 
-        VolleyApiParser.getRequest(OpeningActivity.this, "get_sub_categories", new VolleyApiCallback() {
-                    @Override
-                    public void onResponse(int status, String apiContent) {
-                        if (status == AppConstants.SUCCESS_CODE) {
-                            try {
-                                JSONObject jo = new JSONObject(apiContent);
-                                String apiSt = jo.getString(AppConstants.KEY_STATUS);
-                                if (apiSt.equals(AppConstants.KEY_SUCCESS))
-                                    saveSubCategoryList(jo.getJSONArray(AppConstants.KEY_DATA));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+            VolleyApiParser.getRequest(OpeningActivity.this, "get_sub_categories", new VolleyApiCallback() {
+                        @Override
+                        public void onResponse(int status, String apiContent) {
+                            if (status == AppConstants.SUCCESS_CODE) {
+                                try {
+                                    JSONObject jo = new JSONObject(apiContent);
+                                    String apiSt = jo.getString(AppConstants.KEY_STATUS);
+                                    if (apiSt.equals(AppConstants.KEY_SUCCESS))
+                                        saveSubCategoryList(jo.getJSONArray(AppConstants.KEY_DATA));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
-                }
-        );
+            );
 
-        VolleyApiParser.getRequest(OpeningActivity.this, "get_edu_service_provider", new VolleyApiCallback() {
-                    @Override
-                    public void onResponse(int status, String apiContent) {
-                        if (status == AppConstants.SUCCESS_CODE) {
-                            try {
-                                JSONObject jo = new JSONObject(apiContent);
-                                String apiSt = jo.getString(AppConstants.KEY_STATUS);
-                                if (apiSt.equals(AppConstants.KEY_SUCCESS))
-                                    saveEducationServiceProvider(jo.getJSONArray(AppConstants.KEY_DATA));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+            VolleyApiParser.getRequest(OpeningActivity.this, "get_edu_service_provider", new VolleyApiCallback() {
+                        @Override
+                        public void onResponse(int status, String apiContent) {
+                            if (status == AppConstants.SUCCESS_CODE) {
+                                try {
+                                    JSONObject jo = new JSONObject(apiContent);
+                                    String apiSt = jo.getString(AppConstants.KEY_STATUS);
+                                    if (apiSt.equals(AppConstants.KEY_SUCCESS))
+                                        saveEducationServiceProvider(jo.getJSONArray(AppConstants.KEY_DATA));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
-                }
-        );
+            );
+        }
+        else
+        {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                    INTERNET_PERMISSION);
+        }
 
-        new Handler().postDelayed(new Runnable() {
-
-            /*
-             * Showing splash screen with a timer. This will be useful when you
-             * want to show case your app logo / company
-             */
+       /* new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                // This method will be executed once the timer is over
-                // Start your next activity
-                Intent i = new Intent(OpeningActivity.this, LocationAskActivity.class);
-                startActivity(i);
+
             }
-        }, SPLASH_TIME_OUT);
+        }, SPLASH_TIME_OUT);*/
 
     }
 
@@ -185,6 +192,10 @@ public class OpeningActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
+
+        //TODO write this at the end of the last API saving method
+        Intent i = new Intent(OpeningActivity.this, LocationAskActivity.class);
+        startActivity(i);
     }
 
 
@@ -225,5 +236,23 @@ public class OpeningActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
         finish();
+    }
+
+    // Callback with the request from calling requestPermissions(...)
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        // Make sure it's our original READ_CONTACTS request
+        if (requestCode == INTERNET_PERMISSION) {
+            if (grantResults.length == 1 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Internet permission granted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Inter permission denied", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 }

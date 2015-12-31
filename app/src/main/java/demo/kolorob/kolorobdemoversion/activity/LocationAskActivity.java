@@ -36,6 +36,9 @@ public class LocationAskActivity extends Activity implements View.OnClickListene
                 finish();
                 break;
             case R.id.img_btn_no:
+                Intent ii = new Intent(LocationAskActivity.this, LocationInstructionActivity.class);
+                startActivity(ii);
+                finish();
                 break;
             default:
                 break;
